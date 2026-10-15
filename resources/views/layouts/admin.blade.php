@@ -25,6 +25,10 @@
     class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.posts.*') ? 'bg-sage-700' : '' }}">
     Berita
 </a>
+<a href="{{ route('admin.lecturers.index') }}"
+    class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.lecturers.*') ? 'bg-sage-700' : '' }}">
+    Dosen
+</a>
             </nav>
         </aside>
 
