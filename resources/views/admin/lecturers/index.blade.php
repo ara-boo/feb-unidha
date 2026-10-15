@@ -13,6 +13,7 @@
 
     <form method="GET" class="mb-4 flex flex-col gap-2 md:flex-row">
         <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama atau NIDN..."
+            autocomplete="off"
             class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 md:w-72 focus:outline-none focus:ring-2 focus:ring-sage-400">
         <select name="program"
             class="rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sage-400">
