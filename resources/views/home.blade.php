@@ -28,7 +28,7 @@
     </section>
 
     {{-- Statistik --}}
-    <section class="mx-auto -mt-8 max-w-6xl px-4">
+    <section class="relative z-10 mx-auto -mt-8 max-w-6xl px-4">
         <div class="grid gap-4 rounded-2xl bg-white p-6 shadow-lg sm:grid-cols-3">
             <div class="text-center">
                 <p class="text-3xl font-bold text-sage-700">{{ $stats['programs'] }}</p>
