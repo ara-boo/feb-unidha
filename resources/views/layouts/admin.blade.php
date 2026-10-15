@@ -17,10 +17,10 @@
                 <p class="text-xs text-sage-200">Panel Admin</p>
             </div>
             <nav class="p-4 space-y-1 text-sm">
-                <a href="{{ route('admin.dashboard') }}"
-                    class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.dashboard') ? 'bg-sage-700' : '' }}">
-                    Dashboard
-                </a>
+                <a href="{{ route('admin.posts.index') }}"
+    class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.posts.*') ? 'bg-sage-700' : '' }}">
+    Berita
+</a>
             </nav>
         </aside>
 
