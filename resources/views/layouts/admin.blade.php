@@ -17,6 +17,10 @@
                 <p class="text-xs text-sage-200">Panel Admin</p>
             </div>
             <nav class="p-4 space-y-1 text-sm">
+                <a href="{{ route('admin.study-programs.index') }}"
+    class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.study-programs.*') ? 'bg-sage-700' : '' }}">
+    Program Studi
+</a>
                 <a href="{{ route('admin.posts.index') }}"
     class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.posts.*') ? 'bg-sage-700' : '' }}">
     Berita
