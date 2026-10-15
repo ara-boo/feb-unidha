@@ -29,6 +29,10 @@
     class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.lecturers.*') ? 'bg-sage-700' : '' }}">
     Dosen
 </a>
+<a href="{{ route('admin.pages.index') }}"
+    class="block rounded-lg px-4 py-2 hover:bg-sage-700 {{ request()->routeIs('admin.pages.*') ? 'bg-sage-700' : '' }}">
+    Halaman Profil
+</a>
             </nav>
         </aside>
 

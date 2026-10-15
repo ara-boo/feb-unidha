@@ -20,17 +20,18 @@
         </div>
     </div>
 
-    {{-- Menu --}}
     @php
-        $menu = [
-            ['Beranda', route('home'), 'home'],
-            ['Berita', route('news.index'), 'news.*'],
-        ];
+        $profilePages = \App\Models\Page::orderBy('sort_order')->get();
+        $linkBase = 'rounded-lg px-4 py-2 text-sm font-medium hover:bg-sage-100';
+        $active = 'bg-sage-100 text-sage-800';
+        $idle = 'text-slate-600';
     @endphp
+
+    {{-- Menu --}}
     <header class="sticky top-0 z-30 bg-white/95 shadow-sm backdrop-blur">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
             <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-sage-700 font-bold text-white">F</span>
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage-700 font-bold text-white">F</span>
                 <span class="leading-tight">
                     <span class="block text-lg font-bold text-sage-800">FEB UNIDHA</span>
                     <span class="block text-[11px] text-slate-500">Fakultas Ekonomi dan Bisnis</span>
@@ -38,12 +39,33 @@
             </a>
 
             <nav class="hidden items-center gap-1 md:flex">
-                @foreach ($menu as [$label, $url, $pattern])
-                    <a href="{{ $url }}"
-                        class="rounded-lg px-4 py-2 text-sm font-medium hover:bg-sage-100 {{ request()->routeIs($pattern) ? 'bg-sage-100 text-sage-800' : 'text-slate-600' }}">
-                        {{ $label }}
-                    </a>
-                @endforeach
+                <a href="{{ route('home') }}"
+                    class="{{ $linkBase }} {{ request()->routeIs('home') ? $active : $idle }}">Beranda</a>
+
+                @if ($profilePages->isNotEmpty())
+                    <div class="group relative">
+                        <span class="{{ $linkBase }} inline-block cursor-pointer {{ request()->routeIs('profile.*') ? $active : $idle }}">
+                            Profil &#9662;
+                        </span>
+                        <div class="absolute left-0 top-full hidden w-64 pt-2 group-hover:block">
+                            <div class="rounded-xl bg-white p-2 shadow-lg ring-1 ring-slate-100">
+                                @foreach ($profilePages as $p)
+                                    <a href="{{ route('profile.show', $p) }}"
+                                        class="block rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-sage-100 hover:text-sage-800">
+                                        {{ $p->title }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <a href="{{ route('programs.index') }}"
+                    class="{{ $linkBase }} {{ request()->routeIs('programs.*') ? $active : $idle }}">Program Studi</a>
+                <a href="{{ route('lecturers.index') }}"
+                    class="{{ $linkBase }} {{ request()->routeIs('lecturers.*') ? $active : $idle }}">Dosen</a>
+                <a href="{{ route('news.index') }}"
+                    class="{{ $linkBase }} {{ request()->routeIs('news.*') ? $active : $idle }}">Berita</a>
             </nav>
 
             <button type="button" aria-label="Buka menu"
@@ -52,12 +74,25 @@
         </div>
 
         <nav id="mobile-menu" class="hidden border-t bg-white px-4 py-2 md:hidden">
-            @foreach ($menu as [$label, $url, $pattern])
-                <a href="{{ $url }}"
-                    class="block rounded-lg px-4 py-2 text-sm font-medium hover:bg-sage-100 {{ request()->routeIs($pattern) ? 'bg-sage-100 text-sage-800' : 'text-slate-600' }}">
-                    {{ $label }}
-                </a>
-            @endforeach
+            <a href="{{ route('home') }}"
+                class="block {{ $linkBase }} {{ request()->routeIs('home') ? $active : $idle }}">Beranda</a>
+
+            @if ($profilePages->isNotEmpty())
+                <p class="px-4 pt-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Profil</p>
+                @foreach ($profilePages as $p)
+                    <a href="{{ route('profile.show', $p) }}"
+                        class="block {{ $linkBase }} pl-8 {{ request()->fullUrlIs(route('profile.show', $p)) ? $active : $idle }}">
+                        {{ $p->title }}
+                    </a>
+                @endforeach
+            @endif
+
+            <a href="{{ route('programs.index') }}"
+                class="block {{ $linkBase }} {{ request()->routeIs('programs.*') ? $active : $idle }}">Program Studi</a>
+            <a href="{{ route('lecturers.index') }}"
+                class="block {{ $linkBase }} {{ request()->routeIs('lecturers.*') ? $active : $idle }}">Dosen</a>
+            <a href="{{ route('news.index') }}"
+                class="block {{ $linkBase }} {{ request()->routeIs('news.*') ? $active : $idle }}">Berita</a>
         </nav>
     </header>
 
@@ -76,6 +111,8 @@
                 <p class="font-semibold text-white">Tautan</p>
                 <ul class="mt-2 space-y-1 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-white">Beranda</a></li>
+                    <li><a href="{{ route('programs.index') }}" class="hover:text-white">Program Studi</a></li>
+                    <li><a href="{{ route('lecturers.index') }}" class="hover:text-white">Dosen</a></li>
                     <li><a href="{{ route('news.index') }}" class="hover:text-white">Berita</a></li>
                     <li><a href="https://pmb.unidha.ac.id/" target="_blank" rel="noopener" class="hover:text-white">Daftar PMB</a></li>
                 </ul>
