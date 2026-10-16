@@ -12,14 +12,13 @@
                 UNIVERSITAS DHARMA ANDALAS
             </p>
             <h1 class="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">
-                Fakultas Ekonomi dan Bisnis
+                {{ $site['hero_title'] ?? 'Fakultas Ekonomi dan Bisnis' }}
             </h1>
             <p class="mt-4 max-w-2xl text-lg text-sage-100">
-                Tempat belajar dan berkembang untuk calon profesional di bidang akuntansi,
-                manajemen, bisnis digital, dan pariwisata.
+                {{ $site['hero_subtitle'] ?? '' }}
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
-                <a href="https://pmb.unidha.ac.id/" target="_blank" rel="noopener"
+                <a href="{{ $site['pmb_url'] ?? '#' }}"
                     class="rounded-lg bg-white px-6 py-3 font-semibold text-sage-800 hover:bg-sage-100">Daftar PMB</a>
                 <a href="{{ route('news.index') }}"
                     class="rounded-lg border border-sage-300 px-6 py-3 font-semibold text-white hover:bg-sage-700">Lihat Berita</a>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -37,4 +38,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('study-programs', StudyProgramController::class)->except('show');
     Route::resource('lecturers', LecturerController::class)->except('show');
     Route::resource('pages', AdminPageController::class)->except('show');
+    Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
 });

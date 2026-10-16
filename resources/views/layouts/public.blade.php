@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Beranda') - FEB UNIDHA</title>
-    <meta name="description" content="Fakultas Ekonomi dan Bisnis Universitas Dharma Andalas">
+    <title>@yield('title', 'Beranda') - {{ $site['site_name'] ?? 'FEB UNIDHA' }}</title>
+    <meta name="description" content="{{ $site['site_tagline'] ?? 'Fakultas Ekonomi dan Bisnis' }} Universitas Dharma Andalas">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-sage-50 text-slate-800 antialiased">
@@ -12,10 +12,16 @@
     {{-- Bar atas --}}
     <div class="bg-sage-900 text-xs text-sage-100">
         <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2">
-            <span>feb@unidha.ac.id &nbsp;|&nbsp; Universitas Dharma Andalas</span>
+            <span>
+                {{ $site['contact_email'] ?? 'feb@unidha.ac.id' }} &nbsp;|&nbsp; Universitas Dharma Andalas
+            </span>
             <div class="flex gap-4">
-                <a href="https://www.instagram.com/feb_unidha" target="_blank" rel="noopener" class="hover:text-white">Instagram</a>
-                <a href="https://pmb.unidha.ac.id/" target="_blank" rel="noopener" class="font-semibold hover:text-white">Daftar PMB</a>
+                @if (!empty($site['instagram_url']))
+                    <a href="{{ $site['instagram_url'] }}" target="_blank" rel="noopener" class="hover:text-white">Instagram</a>
+                @endif
+                @if (!empty($site['pmb_url']))
+                    <a href="{{ $site['pmb_url'] }}" target="_blank" rel="noopener" class="font-semibold hover:text-white">Daftar PMB</a>
+                @endif
             </div>
         </div>
     </div>
@@ -31,10 +37,14 @@
     <header class="sticky top-0 z-30 bg-white/95 shadow-sm backdrop-blur">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
             <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage-700 font-bold text-white">F</span>
+                @if (!empty($site['logo']))
+                    <img src="{{ asset('storage/' . $site['logo']) }}" alt="Logo" class="h-10 w-10 shrink-0 object-contain">
+                @else
+                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage-700 font-bold text-white">F</span>
+                @endif
                 <span class="leading-tight">
-                    <span class="block text-lg font-bold text-sage-800">FEB UNIDHA</span>
-                    <span class="block text-[11px] text-slate-500">Fakultas Ekonomi dan Bisnis</span>
+                    <span class="block text-lg font-bold text-sage-800">{{ $site['site_name'] ?? 'FEB UNIDHA' }}</span>
+                    <span class="block text-[11px] text-slate-500">{{ $site['site_tagline'] ?? '' }}</span>
                 </span>
             </a>
 
@@ -104,8 +114,13 @@
     <footer class="mt-16 bg-sage-900 text-sage-100">
         <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
             <div>
-                <p class="text-lg font-bold text-white">FEB UNIDHA</p>
-                <p class="mt-2 text-sm">Fakultas Ekonomi dan Bisnis<br>Universitas Dharma Andalas</p>
+                <p class="text-lg font-bold text-white">{{ $site['site_name'] ?? 'FEB UNIDHA' }}</p>
+                <p class="mt-2 text-sm">
+                    {{ $site['site_tagline'] ?? '' }}<br>Universitas Dharma Andalas
+                </p>
+                @if (!empty($site['contact_address']))
+                    <p class="mt-3 text-sm">{{ $site['contact_address'] }}</p>
+                @endif
             </div>
             <div>
                 <p class="font-semibold text-white">Tautan</p>
@@ -114,14 +129,29 @@
                     <li><a href="{{ route('programs.index') }}" class="hover:text-white">Program Studi</a></li>
                     <li><a href="{{ route('lecturers.index') }}" class="hover:text-white">Dosen</a></li>
                     <li><a href="{{ route('news.index') }}" class="hover:text-white">Berita</a></li>
-                    <li><a href="https://pmb.unidha.ac.id/" target="_blank" rel="noopener" class="hover:text-white">Daftar PMB</a></li>
+                    @if (!empty($site['pmb_url']))
+                        <li><a href="{{ $site['pmb_url'] }}" target="_blank" rel="noopener" class="hover:text-white">Daftar PMB</a></li>
+                    @endif
                 </ul>
             </div>
             <div>
                 <p class="font-semibold text-white">Kontak</p>
                 <ul class="mt-2 space-y-1 text-sm">
-                    <li>feb@unidha.ac.id</li>
-                    <li><a href="https://www.instagram.com/feb_unidha" target="_blank" rel="noopener" class="hover:text-white">@feb_unidha</a></li>
+                    @if (!empty($site['contact_email']))
+                        <li>{{ $site['contact_email'] }}</li>
+                    @endif
+                    @if (!empty($site['contact_phone']))
+                        <li>{{ $site['contact_phone'] }}</li>
+                    @endif
+                    @if (!empty($site['instagram_url']))
+                        <li><a href="{{ $site['instagram_url'] }}" target="_blank" rel="noopener" class="hover:text-white">Instagram</a></li>
+                    @endif
+                    @if (!empty($site['facebook_url']))
+                        <li><a href="{{ $site['facebook_url'] }}" target="_blank" rel="noopener" class="hover:text-white">Facebook</a></li>
+                    @endif
+                    @if (!empty($site['youtube_url']))
+                        <li><a href="{{ $site['youtube_url'] }}" target="_blank" rel="noopener" class="hover:text-white">YouTube</a></li>
+                    @endif
                 </ul>
             </div>
         </div>
