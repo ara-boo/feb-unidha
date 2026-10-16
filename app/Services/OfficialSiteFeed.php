@@ -52,7 +52,7 @@ class OfficialSiteFeed
                         'image' => ($image && Str::startsWith($image, 'http')) ? $image : null,
                     ];
                 })
-                ->filter(fn ($post) => $post['title'] !== '' && $post['link'])
+                ->filter(fn ($post) => $post['title'] !== '' && $post['link'] && strcasecmp($post['title'], 'Hello world!') !== 0)
                 ->values()
                 ->all();
 
