@@ -11,6 +11,7 @@ class ProgramProfileSeeder extends Seeder
     {
         $this->d3Manajemen();
         $this->s1Manajemen();
+        $this->s1Akuntansi();
     }
 
     // Data dari situs resmi D3 Manajemen Perusahaan.
@@ -63,6 +64,36 @@ Program studi yang menyiapkan sarjana manajemen yang inovatif, adaptif, berdaya 
 ### Media sosial
 - [Instagram](https://www.instagram.com/s1_manajemen_unidha)
 - [TikTok](https://www.tiktok.com/@s1manajemen)
+MD,
+            ]);
+    }
+
+    // Data dari situs resmi S1 Akuntansi. Akreditasi belum tercantum di beranda, jadi dibiarkan kosong.
+    private function s1Akuntansi(): void
+    {
+        StudyProgram::where('slug', 's1-akuntansi')
+            ->whereNull('description')
+            ->update([
+                'description' => <<<'MD'
+Program studi yang menyiapkan lulusan akuntansi yang profesional, berintegritas, dan siap menghadapi kebutuhan dunia kerja dan industri, didukung dosen profesional, kurikulum yang relevan, dan lingkungan akademik yang inovatif.
+
+### Prospek karier
+- Auditor di kantor akuntan publik, perusahaan swasta, BUMN, maupun instansi pemerintah
+- Akuntan yang menyajikan informasi keuangan yang transparan dan akurat
+- Konsultan keuangan dan pajak
+
+### Kelebihan
+- Tersedia jalur Rekognisi Pembelajaran Lampau (RPL) untuk mengonversi pengalaman kerja atau pendidikan sebelumnya menjadi SKS
+- Ruang kelas ber-AC dan dilengkapi TV
+- Kegiatan mahasiswa rutin, seperti rangkaian Accounting Week
+
+### Kontak
+- Alamat: Jl. Sawahan No. 103, Simpang Haru, Padang Timur, Kota Padang 25000
+
+### Media sosial
+- [Instagram prodi](https://www.instagram.com/s1_akuntansi_unidha)
+- [TikTok prodi](https://www.tiktok.com/@s1akuntansi.unidha)
+- [Instagram himpunan mahasiswa](https://www.instagram.com/himaaksi.unidha)
 MD,
             ]);
     }
