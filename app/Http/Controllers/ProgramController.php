@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudyProgram;
+use App\Services\OfficialSiteFeed;
 
 class ProgramController extends Controller
 {
@@ -25,6 +26,10 @@ class ProgramController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('programs.show', compact('program', 'others'));
+        $feed = $program->website_url
+            ? OfficialSiteFeed::latestPosts($program->website_url, 3)
+            : [];
+
+        return view('programs.show', compact('program', 'others', 'feed'));
     }
 }
