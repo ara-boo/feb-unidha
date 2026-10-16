@@ -55,7 +55,7 @@ class Page extends Model
         $flushText();
         $flushStats();
 
-        return $html;
+        return str_replace('src="/storage/', 'src="' . asset('storage') . '/', $html);
     }
 
     private static function statGrid(array $stats): string

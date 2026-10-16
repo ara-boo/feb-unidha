@@ -17,7 +17,6 @@
                 <tr>
                     <th class="px-4 py-3">Urutan</th>
                     <th class="px-4 py-3">Judul</th>
-                    <th class="px-4 py-3">Alamat</th>
                     <th class="px-4 py-3 text-right">Aksi</th>
                 </tr>
             </thead>
@@ -26,7 +25,6 @@
                     <tr class="border-t">
                         <td class="px-4 py-3">{{ $page->sort_order }}</td>
                         <td class="px-4 py-3 font-medium">{{ $page->title }}</td>
-                        <td class="px-4 py-3 text-slate-500">/profil/{{ $page->slug }}</td>
                         <td class="px-4 py-3">
                             <div class="flex justify-end gap-2">
                                 <a href="{{ route('profile.show', $page) }}" target="_blank"
@@ -44,7 +42,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-8 text-center text-slate-500">Belum ada halaman.</td>
+                        <td colspan="3" class="px-4 py-8 text-center text-slate-500">Belum ada halaman.</td>
                     </tr>
                 @endforelse
             </tbody>

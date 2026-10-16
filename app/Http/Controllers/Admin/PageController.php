@@ -65,7 +65,7 @@ class PageController extends Controller
             'content'    => ['nullable', 'string'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'images'     => ['nullable', 'array', 'max:10'],
-            'images.*'   => ['image', 'max:4096'],
+            'images.*'   => ['nullable', 'max:4096'],
         ]);
 
         unset($data['images']);
