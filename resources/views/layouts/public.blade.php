@@ -7,8 +7,7 @@
     <meta name="description" content="{{ $site['site_tagline'] ?? 'Fakultas Ekonomi dan Bisnis' }} Universitas Dharma Andalas">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-sage-50 text-slate-800 antialiased">
-
+<body class="bg-sage-50 text-slate-800 antialiased" data-public>
     {{-- Bar atas --}}
     <div class="bg-sage-900 text-xs text-sage-100">
         <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2">

@@ -19,3 +19,105 @@
     --color-sage-800: #374632;
     --color-sage-900: #2d392a;
 }
+.content-body h2 { font-size: 1.5rem; font-weight: 700; color: #374632; margin-top: 2rem; margin-bottom: 0.75rem; }
+.content-body h3 { font-size: 1.15rem; font-weight: 600; color: #43573b; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.content-body p { margin-top: 0.75rem; }
+.content-body ul { list-style: disc; padding-left: 1.5rem; margin-top: 0.75rem; }
+.content-body ol { list-style: decimal; padding-left: 1.5rem; margin-top: 0.75rem; }
+.content-body li { margin-top: 0.25rem; }
+.content-body strong { font-weight: 600; }
+.content-body blockquote {
+    border-left: 4px solid #87a279;
+    background: #f3f6f1;
+    color: #2d392a;
+    font-style: italic;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+}
+.content-body > :first-child { margin-top: 0; }
+/* ===== Gerak dan interaksi ===== */
+
+/* Kartu: terangkat saat disorot, menekan saat disentuh */
+.tap-card {
+    transition: translate 0.25s ease, scale 0.15s ease, box-shadow 0.25s ease;
+}
+@media (hover: hover) {
+    .tap-card:hover {
+        translate: 0 -4px;
+        box-shadow: 0 12px 28px rgb(45 57 42 / 0.15);
+    }
+}
+.tap-card:active {
+    translate: 0 -2px;
+    scale: 0.98;
+}
+
+/* Tombol dan tautan berbentuk tombol: mengecil saat ditekan */
+a[class*="rounded-lg"],
+button[class*="rounded-lg"] {
+    transition: scale 0.15s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+a[class*="rounded-lg"]:active,
+button[class*="rounded-lg"]:active {
+    scale: 0.95;
+}
+
+/* Muncul saat digulir */
+.reveal {
+    opacity: 0;
+}
+.reveal.is-visible {
+    animation: fade-up 0.6s ease forwards;
+}
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Lingkaran dekorasi melayang */
+.float-slow {
+    animation: floaty 9s ease-in-out infinite;
+}
+@keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-22px); }
+}
+
+/* Hormati pengguna yang mematikan animasi di perangkatnya */
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; }
+    .reveal.is-visible,
+    .float-slow { animation: none; }
+    .tap-card,
+    a[class*="rounded-lg"],
+    button[class*="rounded-lg"] { transition: none; }
+}
+/* Gulir halus saat memilih bagian */
+html { scroll-behavior: smooth; }
+
+/* Daftar bertanda centang */
+.check-list ul { list-style: none; padding-left: 0; }
+.check-list li { position: relative; padding-left: 1.5rem; margin-top: 0.4rem; }
+.check-list li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: #546d49;
+}
+/* Gambar di dalam isi halaman */
+.content-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.12);
+}

@@ -25,6 +25,7 @@ class PageController extends Controller
     {
         $data = $this->validated($request);
         $data['slug'] = $this->makeSlug($data['title']);
+        $data['content'] = $this->appendImages($request, $data['content'] ?? '');
 
         Page::create($data);
 
@@ -40,7 +41,10 @@ class PageController extends Controller
     public function update(Request $request, Page $page)
     {
         // Slug sengaja tidak diubah supaya tautan lama tetap berfungsi.
-        $page->update($this->validated($request));
+        $data = $this->validated($request);
+        $data['content'] = $this->appendImages($request, $data['content'] ?? '');
+
+        $page->update($data);
 
         return redirect()->route('admin.pages.index')
             ->with('success', 'Halaman berhasil diperbarui.');
@@ -60,11 +64,35 @@ class PageController extends Controller
             'title'      => ['required', 'string', 'max:255'],
             'content'    => ['nullable', 'string'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
+            'images'     => ['nullable', 'array', 'max:10'],
+            'images.*'   => ['image', 'max:4096'],
         ]);
 
+        unset($data['images']);
         $data['sort_order'] = $data['sort_order'] ?? 0;
 
         return $data;
+    }
+
+    /**
+     * Menyimpan gambar yang diunggah, lalu menambahkan baris Markdown-nya di akhir isi.
+     */
+    private function appendImages(Request $request, string $content): string
+    {
+        if (! $request->hasFile('images')) {
+            return $content;
+        }
+
+        $lines = [];
+
+        foreach ($request->file('images') as $file) {
+            $path = $file->store('pages', 'public');
+            $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $name = str_replace(['[', ']'], '', $name);
+            $lines[] = '![' . $name . '](/storage/' . $path . ')';
+        }
+
+        return rtrim($content) . "\n\n" . implode("\n\n", $lines) . "\n";
     }
 
     private function makeSlug(string $title): string

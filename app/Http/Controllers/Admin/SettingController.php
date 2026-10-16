@@ -17,7 +17,7 @@ class SettingController extends Controller
 
     public function edit()
     {
-        return view('admin.setting.edit', ['values' => Setting::allValues()]);
+       return view('admin.settings.edit', ['values' => Setting::allValues()]);
     }
 
     public function update(Request $request)
