@@ -61,6 +61,9 @@
                     <h3 class="mt-3 font-semibold text-slate-800">{{ $program->name }}</h3>
                     @if ($program->accreditation)
                         <p class="mt-1 text-sm text-slate-500">Akreditasi: {{ $program->accreditation }}</p>
+                        @if ($program->accreditation)
+                        <p class="mt-1 text-sm text-slate-500">Akreditasi: {{ $program->accreditation }}</p>
+                    @endif
                     @endif
                 </{{ $tag }}>
             @empty

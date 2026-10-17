@@ -88,6 +88,21 @@ class LecturerController extends Controller
         return redirect()->route('admin.lecturers.index')
             ->with('success', 'Data dosen berhasil dihapus.');
     }
+    public function assign(Request $request)
+{
+    $data = $request->validate([
+        'ids'              => ['required', 'array'],
+        'ids.*'            => ['integer', 'exists:lecturers,id'],
+        'study_program_id' => ['nullable', 'exists:study_programs,id'],
+    ], [
+        'ids.required' => 'Pilih minimal satu dosen.',
+    ]);
+
+    Lecturer::whereIn('id', $data['ids'])
+        ->update(['study_program_id' => $data['study_program_id'] ?? null]);
+
+    return back()->with('success', count($data['ids']) . ' dosen berhasil diperbarui.');
+}
 
     private function validated(Request $request): array
     {

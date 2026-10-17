@@ -16,7 +16,7 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        $programs = StudyProgram::orderBy('sort_order')->get();
+        $programs = StudyProgram::withCount('lecturers')->orderBy('sort_order')->get();
 
         $stats = [
             'programs'  => $programs->count(),

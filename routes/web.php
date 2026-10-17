@@ -40,4 +40,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('pages', AdminPageController::class)->except('show');
     Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+    Route::post('lecturers/assign', [LecturerController::class, 'assign'])->name('lecturers.assign');
+    Route::resource('lecturers', LecturerController::class)->except('show');
 });

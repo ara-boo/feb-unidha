@@ -11,6 +11,7 @@
         </a>
     </div>
 
+    {{-- Pencarian dan filter --}}
     <form method="GET" class="mb-4 flex flex-col gap-2 md:flex-row">
         <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama atau NIDN..."
             autocomplete="off"
@@ -18,6 +19,7 @@
         <select name="program"
             class="rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sage-400">
             <option value="">Semua program studi</option>
+            <option value="none" @selected(request('program') === 'none')>Belum ada program studi</option>
             @foreach ($programs as $program)
                 <option value="{{ $program->id }}" @selected(request('program') == $program->id)>
                     {{ $program->full_name }}
@@ -31,10 +33,31 @@
         @endif
     </form>
 
+    {{-- Form aksi massal (kolom di bawah memakai atribut form="bulk-form") --}}
+    <form id="bulk-form" method="POST" action="{{ route('admin.lecturers.assign') }}">@csrf</form>
+
+    <div class="mb-3 flex flex-col gap-2 rounded-2xl bg-white p-4 shadow md:flex-row md:items-center">
+        <span class="text-sm font-medium">Pindahkan dosen yang dicentang ke:</span>
+        <select name="study_program_id" form="bulk-form"
+            class="rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sage-400">
+            <option value="">- Tanpa program studi -</option>
+            @foreach ($programs as $program)
+                <option value="{{ $program->id }}">{{ $program->full_name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" form="bulk-form"
+            class="rounded-lg bg-sage-600 px-4 py-2 font-semibold text-white hover:bg-sage-700">Terapkan</button>
+        @error('ids') <p class="text-sm text-red-600">{{ $message }}</p> @enderror
+    </div>
+
     <div class="overflow-x-auto rounded-2xl bg-white shadow">
         <table class="w-full text-left text-sm">
             <thead class="bg-sage-100 text-sage-800">
                 <tr>
+                    <th class="px-4 py-3">
+                        <input type="checkbox" class="h-4 w-4" title="Pilih semua di halaman ini"
+                            onclick="document.querySelectorAll('.row-check').forEach(c => c.checked = this.checked)">
+                    </th>
                     <th class="px-4 py-3">Foto</th>
                     <th class="px-4 py-3">Nama</th>
                     <th class="px-4 py-3">NIDN</th>
@@ -46,6 +69,10 @@
             <tbody>
                 @forelse ($lecturers as $lecturer)
                     <tr class="border-t">
+                        <td class="px-4 py-3">
+                            <input type="checkbox" name="ids[]" value="{{ $lecturer->id }}" form="bulk-form"
+                                class="row-check h-4 w-4">
+                        </td>
                         <td class="px-4 py-3">
                             @if ($lecturer->photo)
                                 <img src="{{ asset('storage/' . $lecturer->photo) }}" alt="{{ $lecturer->name }}"
@@ -75,7 +102,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-8 text-center text-slate-500">Belum ada data dosen.</td>
+                        <td colspan="7" class="px-4 py-8 text-center text-slate-500">Belum ada data dosen.</td>
                     </tr>
                 @endforelse
             </tbody>
