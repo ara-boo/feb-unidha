@@ -23,12 +23,18 @@ class ProgramProfileSeeder extends Seeder
 
     // Data dari situs resmi D3 Manajemen Perusahaan.
     private function d3Manajemen(): void
-    {
-        StudyProgram::where('slug', 'd3-manajemen-perusahaan')
-            ->whereNull('description')
-            ->update([
-                'accreditation' => 'Unggul',
-                'description' => <<<'MD'
+{
+    // Akreditasi diperbarui terpisah dari deskripsi.
+    StudyProgram::where('slug', 'd3-manajemen-perusahaan')
+        ->update([
+            'accreditation' => 'Unggul',
+        ]);
+
+    // Deskripsi hanya diisi jika masih NULL.
+    StudyProgram::where('slug', 'd3-manajemen-perusahaan')
+        ->whereNull('description')
+        ->update([
+            'description' => <<<'MD'
 Program studi vokasi yang menyiapkan lulusan siap kerja di bidang manajemen dan administrasi bisnis, dengan kurikulum yang dekat dengan kebutuhan dunia kerja, pembelajaran berbasis praktik, dan magang industri.
 
 ### Prospek karier
@@ -41,11 +47,11 @@ Program studi vokasi yang menyiapkan lulusan siap kerja di bidang manajemen dan 
 
 ### Kontak
 - Alamat: Jl. Sawahan No. 103 A, Padang
-- Email: d3manajemen@unidha.ac.id
+- Email: [d3manajemen@unidha.ac.id](mailto:d3manajemen@unidha.ac.id)
 - Telepon: 0751-37135
 MD,
-            ]);
-    }
+        ]);
+}
 
     // Data dari situs resmi S1 Manajemen.
     private function s1Manajemen(): void
