@@ -44,33 +44,42 @@
         </div>
     </section>
 
-    {{-- Program studi --}}
-    <section class="mx-auto mt-16 max-w-6xl px-4">
-        <h2 class="text-2xl font-bold text-sage-800">Program Studi</h2>
-        <p class="mt-1 text-slate-500">Pilihan program studi di Fakultas Ekonomi dan Bisnis.</p>
-
-        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            @forelse ($programs as $program)
-                @php $tag = $program->website_url ? 'a' : 'div'; @endphp
-                <{{ $tag }}
-                    @if ($program->website_url) href="{{ $program->website_url }}" target="_blank" rel="noopener" @endif
-                    class="block rounded-2xl bg-white p-5 shadow transition hover:-translate-y-1 hover:shadow-lg">
-                    <span class="inline-block rounded-full bg-sage-100 px-3 py-1 text-xs font-bold text-sage-700">
-                        {{ $program->degree }}
-                    </span>
-                    <h3 class="mt-3 font-semibold text-slate-800">{{ $program->name }}</h3>
-                    @if ($program->accreditation)
-                        <p class="mt-1 text-sm text-slate-500">Akreditasi: {{ $program->accreditation }}</p>
-                        @if ($program->accreditation)
-                        <p class="mt-1 text-sm text-slate-500">Akreditasi: {{ $program->accreditation }}</p>
-                    @endif
-                    @endif
-                </{{ $tag }}>
-            @empty
-                <p class="text-slate-500">Belum ada data program studi.</p>
-            @endforelse
+   {{-- Program studi --}}
+<section class="mx-auto mt-16 max-w-6xl px-4">
+    <div class="flex items-end justify-between">
+        <div>
+            <h2 class="text-2xl font-bold text-sage-800">Program Studi</h2>
+            <p class="mt-1 text-slate-500">Pilihan program studi di Fakultas Ekonomi dan Bisnis.</p>
         </div>
-    </section>
+        <a href="{{ route('programs.index') }}" class="text-sm font-semibold text-sage-700 hover:underline">Semua program studi &rarr;</a>
+    </div>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        @forelse ($programs as $program)
+            <a href="{{ route('programs.show', $program) }}"
+                class="flex h-full flex-col rounded-2xl bg-white p-5 shadow transition hover:-translate-y-1 hover:shadow-lg">
+                <span class="inline-block self-start rounded-full bg-sage-100 px-3 py-1 text-xs font-bold text-sage-700">
+                    {{ $program->degree }}
+                </span>
+
+                <h3 class="mt-3 font-semibold leading-snug text-slate-800">{{ $program->name }}</h3>
+
+                <dl class="mt-auto space-y-1 border-t border-slate-100 pt-4 text-sm">
+                    <div class="flex justify-between gap-2">
+                        <dt class="text-slate-500">Akreditasi</dt>
+                        <dd class="font-medium text-slate-700">{{ $program->accreditation ?: '-' }}</dd>
+                    </div>
+                    <div class="flex justify-between gap-2">
+                        <dt class="text-slate-500">Dosen</dt>
+                        <dd class="font-medium text-slate-700">{{ $program->lecturers_count }}</dd>
+                    </div>
+                </dl>
+            </a>
+        @empty
+            <p class="text-slate-500">Belum ada data program studi.</p>
+        @endforelse
+    </div>
+</section>
 
     {{-- Berita terbaru --}}
     <section class="mx-auto mt-16 max-w-6xl px-4">
