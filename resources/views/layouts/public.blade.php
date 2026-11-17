@@ -42,16 +42,19 @@
     <header class="sticky top-0 z-30 bg-white/95 shadow-sm backdrop-blur">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
             <a href="{{ route('home') }}" class="flex items-center gap-3">
-                @if (!empty($site['logo']))
-                    <img src="{{ asset('storage/' . $site['logo']) }}" alt="Logo" class="h-10 w-10 shrink-0 object-contain">
-                @else
-                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sage-700 font-bold text-white">F</span>
-                @endif
-                <span class="leading-tight">
-                    <span class="block text-lg font-bold text-sage-800">{{ $site['site_name'] ?? 'FEB UNIDHA' }}</span>
-                    <span class="block text-[11px] text-slate-500">{{ $site['site_tagline'] ?? '' }}</span>
-                </span>
-            </a>
+                <!-- KODE BARU (Logo Resmi UNIDHA Langsung Muncul): -->
+<a href="{{ route('home') }}" class="flex items-center gap-3">
+    <!-- 1. Logo Resmi UNIDHA -->
+    <img src="https://assets.siakadcloud.com/uploads/unidha/logoaplikasi/1542.jpg" 
+         alt="Logo FEB UNIDHA" 
+         class="h-12 w-auto shrink-0 object-contain">
+    
+    <!-- 2. Teks FEB UNIDHA & Fakultas Ekonomi dan Bisnis -->
+    <span class="leading-tight">
+        <span class="block text-lg font-bold text-sage-800">FEB UNIDHA</span>
+        <span class="block text-[11px] text-slate-500 font-medium">Fakultas Ekonomi dan Bisnis</span>
+    </span>
+</a>
 
             <!-- NAVBAR DESKTOP -->
             <nav class="hidden items-center gap-1 md:flex">
@@ -286,3 +289,4 @@
     </footer>
 </body>
 </html>
+

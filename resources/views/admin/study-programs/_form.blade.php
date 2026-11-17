@@ -28,7 +28,7 @@
             <select name="accreditation"
                 class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sage-400">
                 <option value="">-- Pilih Akreditasi --</option>
-                @foreach (['Baik', 'Terakreditasi', 'Baik Sekali'] as $status)
+                @foreach (['Baik', 'Terakreditasi', 'Baik Sekali', 'Unggul'] as $status)
                     <option value="{{ $status }}" @selected(old('accreditation', $program->accreditation ?? '') === $status)>
                         {{ $status }}
                     </option>
@@ -62,4 +62,19 @@
     <div class="md:w-1/3">
         <label class="block text-sm font-medium mb-1">Urutan tampil</label>
         <input type="number" min="0" name="sort_order" value="{{ old('sort_order', $program->sort_order ?? 0) }}"
-            class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sage-400">
+        @error('sort_order') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+    </div>
+
+    <!-- Tombol Simpan & Batal -->
+    <div class="flex gap-2 pt-4">
+        <button type="submit"
+            class="rounded-lg bg-sage-600 px-5 py-2 font-semibold text-white hover:bg-sage-700">
+            Simpan Perubahan
+        </button>
+        <a href="{{ route('admin.study-programs.index') }}"
+            class="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold hover:bg-slate-50">
+            Batal
+        </a>
+    </div>
+</div>
