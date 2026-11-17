@@ -1,12 +1,11 @@
 <div class="rounded-2xl bg-white p-5 text-center shadow transition hover:-translate-y-1 hover:shadow-lg">
-    @if ($lecturer->photo)
-        <img src="{{ asset('storage/' . $lecturer->photo) }}" alt="{{ $lecturer->name }}"
-            class="mx-auto h-24 w-24 rounded-full object-cover">
-    @else
-        <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-sage-100 text-2xl font-bold text-sage-700">
-            {{ strtoupper(substr($lecturer->name, 0, 1)) }}
-        </div>
-    @endif
+    @php
+        $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($lecturer->name) . '&background=2d4a22&color=ffffff&size=200&bold=true';
+        $photoUrl = $lecturer->photo ? asset('storage/' . $lecturer->photo) : $avatarUrl;
+    @endphp
+
+    <img src="{{ $photoUrl }}" alt="{{ $lecturer->name }}"
+        class="mx-auto h-24 w-24 rounded-full object-cover border-2 border-sage-200 shadow-sm">
 
     <h3 class="mt-3 font-semibold leading-snug text-slate-800">{{ $lecturer->name }}</h3>
 
